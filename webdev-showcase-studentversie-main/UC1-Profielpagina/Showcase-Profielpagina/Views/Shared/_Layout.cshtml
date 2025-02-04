@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="~/Showcase_Profielpagina.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <script src="~/js/darkmode.js" asp-append-version="true"></script>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -29,6 +31,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <button id="darkModeToggle" class="btn btn-dark">Light Mode</button>
                         </li>
                     </ul>
                 </div>
