@@ -7,8 +7,4 @@
     <RootNamespace>Showcase_Profielpagina</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\css\Style.css" />
-  </ItemGroup>
-
 </Project>
