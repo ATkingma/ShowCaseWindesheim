@@ -40,13 +40,15 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    <section class="gdpr-consent hide">
 
+    <!-- GDPR Consent Banner -->
+    <section class="gdpr-consent">
         <div class="gdpr-consent__description">
             <p>
                 Deze website gebruikt cookies.
@@ -54,12 +56,12 @@
                 van verkeer op de website, advertenties.
             </p>
         </div>
-
         <div class="gdpr-consent__choice">
             <button class="gdpr-consent__button--accept">Ja, natuurlijk</button>
             <button class="gdpr-consent__button--reject">Neu, misschien later</button>
         </div>
     </section>
+
     <footer class="footer-top footer text-muted">
         <div class="footer-content">
             <span class="footer-text">&copy; 2024 - Showcase_Profielpagina</span>
