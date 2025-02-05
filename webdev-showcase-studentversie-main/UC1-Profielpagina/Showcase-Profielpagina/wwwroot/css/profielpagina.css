@@ -88,13 +88,19 @@ html, body {
     display: block;
     margin: 20px 0;
 }
-
-.skills{
-
+.skill-list {
+    list-style-type: none;
+}
+.skills {
 }
 
-.skill{
-
+.skill-text {
+    border-radius: 40%;
+    height: 30px;
+    width: 50px;
+    line-height: 26px;
+    display: inline-block;
+    text-align: center;
 }
 
 
