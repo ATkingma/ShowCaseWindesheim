@@ -1,22 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
 <div class="page">
     <section class="personalia">
 
-        <img class="person-logo" src="images/person-pasfoto.png">
+        <img class="person-logo" src="images/timme.jpg">
         <h1 class="person-name">Timme Kingma</h1>
-    </section>
-
-    <section class="profile">
-        <div class="custom-line--thick"></div>
         <section class="profile-content">
-
-            <div class="profile-content__category--hidden-mobile">
-                <h3 class="profile-content__title-center">Profiel</h3>
-            </div>
-
             <div class="profile-content__element--hidden-mobile">
                 <div class="profile-content__element-header">
                 </div>
@@ -32,156 +22,138 @@
             <div class="skills">
                 <h2 class="profile-content__subCategory-title-center">My Skills</h2>
                 <ul class="skill-list">
-                    <li class="mt-3">
-                        <span class="skill-text" style="color: #1E90FF; border: 3px solid #1E90FF;" title="Label: C#">C#</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width: 80%; background-color: #1E90FF; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #1E90FF;">C#</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 80%; background-color: #1E90FF;"></div>
                         </div>
-                        <small>6 years</small>
+                        <small class="skill-experience">6 years</small>
                     </li>
-                    <li class="mt-3">
-                        <span class="Label text-uppercase" style="color: #9932CC; border: 1px solid #9932CC;" title="Label: Unity">Unity</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width: 80%; background-color: #9932CC; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #9932CC;">Unity</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 80%; background-color: #9932CC;"></div>
                         </div>
-                        <small>6 year</small>
+                        <small class="skill-experience">6 years</small>
                     </li>
-                    <li class="mt-3">
-                        <span class="Label text-uppercase" style="color: #E74C3C; border: 1px solid #E74C3C;" title="Label: Git">Git</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width: 40%; background-color: #E74C3C; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #E74C3C;">Git</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 40%; background-color: #E74C3C;"></div>
                         </div>
-                        <small>4 years</small>
+                        <small class="skill-experience">4 years</small>
                     </li>
-                    <li class="mt-3">
-                        <span class="Label text-uppercase" style="color: #c5d303; border: 1px solid #c5d303;" title="Label: Javascript">Javascript</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width: 30%; background-color: #c5d303; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #c5d303;">Javascript</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 30%; background-color: #c5d303;"></div>
                         </div>
-                        <small>3 years</small>
+                        <small class="skill-experience">3 years</small>
                     </li>
-                    <li class="mt-3">
-                        <span class="Label text-uppercase" style="color: #00FA9A; border: 1px solid #00FA9A;" title="Label: Java">Java</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width: 20%; background-color: #00FA9A; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #00FA9A;">Java</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 20%; background-color: #00FA9A;"></div>
                         </div>
-                        <small>2 years</small>
+                        <small class="skill-experience">2 years</small>
                     </li>
-                    <li class="mt-3">
-                        <span class="Label text-uppercase" style="color: #6A5ACD; border: 1px solid #6A5ACD;" title="Label: SQL">SQL</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width:15%; background-color: #6A5ACD; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #6A5ACD;">SQL</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 15%; background-color: #6A5ACD;"></div>
                         </div>
-                        <small> 1.5 years</small>
+                        <small class="skill-experience">1.5 years</small>
                     </li>
-                    <li class="mt-3">
-                        <span class="Label text-uppercase" style="color: #4169E1; border: 1px solid #4169E1;" title="Label: PHP">PHP</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width: 15%; background-color: #4169E1; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #4169E1;">PHP</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 15%; background-color: #4169E1;"></div>
                         </div>
-                        <small>1.5 years</small>
+                        <small class="skill-experience">1.5 years</small>
                     </li>
-
-                    <li class="mt-3">
-                        <span class="Label text-uppercase" style="color: #FF7F50; border: 1px solid #FF7F50;" title="Label: Playcanvas">Playcanvas</span>
-                        <div style="margin-top: 5px; width: 100%; background-color: #f0f0f0; border-radius: 4px;">
-                            <div style="width: 10%; background-color: #FF7F50; height: 10px; border-radius: 4px;"></div>
+                    <li class="skill-item">
+                        <span class="skill-label" style="background-color: #FF7F50;">Playcanvas</span>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" style="width: 10%; background-color: #FF7F50;"></div>
                         </div>
-                        <small>1 years</small>
+                        <small class="skill-experience">1 year</small>
                     </li>
                 </ul>
             </div>
+        </section>
+    </section>
 
+        <section class="profile">
+            <div class="profile-content__category">
+                <h2 class="profile-content__subCategory-title-center">Ervaring</h2>
+            </div>
 
             <div class="custom-line--thick"></div>
-            <div class="profile-content__category">
-                <h3 class="profile-content__subCategory-title-center">Ervaring</h3>
-            </div>
-
             <div class="profile-content__element">
-                <div class="profile-content__subCategory-title-centert">
-                    <h4 class="profile-content__title">HR Assistant</h4>
+                <div class="profile-content">
+                    <h3 class="profile-content__title">HR Assistant</h3>
+                    <p class="profile-content__institute">
+                        DNZT, Meppel
+                    </p>
                     <p class="profile-content__period">nov 2021 - mei 2022</p>
                 </div>
-                <p class="profile-content__institute">
-                    DNZT, Meppel
-                </p>
             </div>
-
-            <div class="profile-content__element">
-                <div class="profile-content__element-header">
-                    <h4 class="profile-content__subCategory-title-centert">
-                        Graduated Game Development
-                   </h4>
-                    <p class="profile-content__period">
-                        2019 - 2023
-                    </p>
-                </div>
-                <p class="profile-content__institute">
-                    Deltion, Zwolle
-                </p>
-            </div>
-
-
-            
-            <div class="profile-content__element">
-                <div class="profile-content__element-header">
-                    <h4 class="profile-content__subCategory-title-centert">
-                        Intern Developer
-                   </h4>
-                    <p class="profile-content__period">
-                        August 2022 - February 2023
-                    </p>
-                </div>
-                <p class="profile-content__institute">
-                    VR Owl, Utrecht
-                </p>
-            </div>
-
-            
-            <div class="profile-content__element">
-                <div class="profile-content__element-header">
-                    <h4 class="profile-content__subCategory-title-centert">
-                        Intern Game Developer
-                   </h4>
-                    <p class="profile-content__period">
-                        January 2022 - July 2022
-                    </p>
-                </div>
-                <p class="profile-content__institute">
-                    NoPressureStudios, Emmen
-                </p>
-            </div>
+            <div class="custom-line--skinny"></div>
 
 
             <div class="profile-content__element">
-                <div class="profile-content__element-header">
-                    <h4 class="profile-content__subCategory-title-centert">
-                        Front of House Staff
-                    </h4>
-                    <p class="profile-content__period">
-                        2021 - 2021
+                <div class="profile-content">
+                    <h3 class="profile-content__title">Graduated Game Development</h3>
+                    <p class="profile-content__institute">
+                        Deltion, Zwolle
                     </p>
+                    <p class="profile-content__period">2019 - 2023</p>
                 </div>
-                <p class="profile-content__institute">
-                    Luxor, Steenwijk
-                </p>
             </div>
+            <div class="custom-line--skinny"></div>
 
             <div class="profile-content__element">
-                <div class="profile-content__element-header">
-                    <h4 class="profile-content__subCategory-title-centert">
-                        Preparatory Secondary Vocational Education
-                    </h4>
-                    <p class="profile-content__period">
-                        2015 - 2019
+                <div class="profile-content">
+                    <h3 class="profile-content__title">Intern Developer</h3>
+                    <p class="profile-content__institute">
+                        VR Owl, Utrecht
                     </p>
+                    <p class="profile-content__period">August 2022 - February 2023</p>
                 </div>
-                <p class="profile-content__institute">
-                    Terra, Meppel
-                </p>
             </div>
+            <div class="custom-line--skinny"></div>
+
+            <div class="profile-content__element">
+                <div class="profile-content">
+                    <h3 class="profile-content__title">Intern Game Developer</h3>
+                    <p class="profile-content__institute">
+                        NoPressureStudios, Emmen
+                    </p>
+                    <p class="profile-content__period">January 2022 - July 2022</p>
+                </div>
+            </div>
+            <div class="custom-line--skinny"></div>
+
+            <div class="profile-content__element">
+                <div class="profile-content">
+                    <h3 class="profile-content__title">Front of House Staff</h3>
+                    <p class="profile-content__institute">
+                        Luxor, Steenwijk
+                    </p>
+                    <p class="profile-content__period">2021 - 2021</p>
+                </div>
+            </div>
+            <div class="custom-line--skinny"></div>
+
+            <div class="profile-content__element">
+                <div class="profile-content">
+                    <h3 class="profile-content__title">Preparatory Secondary Vocational Education</h3>
+                    <p class="profile-content__institute">
+                        Terra, Meppel
+                    </p>
+                    <p class="profile-content__period">2015 - 2019</p>
+                </div>
+            </div>
+            <div class="custom-line--skinny"></div>
         </section>
-
-    </section>
 </div>

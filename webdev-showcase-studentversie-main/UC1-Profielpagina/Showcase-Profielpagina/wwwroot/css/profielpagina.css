@@ -10,15 +10,15 @@
 
 /* Light Mode Variables */
 .light-mode {
-    --background-color: white;
+    --background-color: #faf8f8;
     --text-color: black;
     --profile-bg: #faf8f8;
-    --highlight-color: rgba(39, 140, 39, 0.96);
+    --highlight-color: #ffaa00;
     --border-color: black;
     --sub-text-color: #6b6b6b;
 }
 
-html, body {
+.html, body {
     background-color: var(--background-color);
     color: var(--text-color);
     margin: 0;
@@ -26,6 +26,16 @@ html, body {
     height: 100%;
     width: 100%;
 }
+
+.container {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    font-family: Arial;
+    grid: auto;
+}
+
 /* Mobile version */
 .page {
     display: flex;
@@ -49,7 +59,7 @@ html, body {
 }
 
 .person-logo {
-    border: 4px solid var(--border-color);
+    border: 4px solid var(--highlight-color);
     border-radius: 50%;
     margin: 15px 0px 15px 0px;
     width: 20%;
@@ -64,15 +74,20 @@ html, body {
     color: var(--highlight-color);
 }
 
-.profile-content__title-center,
+.profile-content__title-center {
+    color: var(--highlight-color);
+    text-align: center;
+}
+
+.profile-content__title {
+    padding-top: 20px;
+    color: var(--highlight-color);
+}
+
 .profile-content__subCategory-title-center {
     padding-top: 20px;
     color: var(--sub-text-color);
     text-align: center
-}
-
-.profile-content__institute {
-    color: var(--highlight-color);
 }
 
 .custom-line--thick {
@@ -86,29 +101,68 @@ html, body {
     height: 2px;
     background-color: var(--text-color);
     display: block;
-    margin: 20px 0;
 }
+
 .skill-list {
     list-style-type: none;
-}
-.skills {
+    padding: 0;
 }
 
-.skill-text {
-    border-radius: 40%;
-    height: 30px;
-    width: 50px;
-    line-height: 26px;
+.skill-item {
+    margin-bottom: 20px;
+}
+
+.skill-label {
     display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: white;
     text-align: center;
+    margin-bottom: 5px;
 }
 
+.skill-bar-container {
+    margin-top: 5px;
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    height: 10px;
+    position: relative;
+    overflow: hidden;
+}
 
+.skill-bar {
+    height: 100%;
+    border-radius: 4px;
+}
 
+.skill-experience {
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--sub-text-color);
+}
 
+.profile-content__period {
+    font-size: 15px;
+    color: var(--sub-text-color);
+    display: flex;
+}
+
+/* Media Query for PC */
 @media only screen and (min-width: 800px) {
     .page {
-        flex-direction: row;
+        flex-direction: row; 
+    }
+
+    .personalia, .profile {
+        width: 50%; 
+        padding: 20px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
     }
 
     .person-name {
@@ -135,7 +189,7 @@ html, body {
 
     .profile-content__period {
         font-size: 12px;
-        color: #5c6166;
+        color: var(--sub-text-color);
         display: flex;
     }
 }
