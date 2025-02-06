@@ -1,9 +1,9 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     const darkModeToggle = document.getElementById("darkModeToggle");
+
     const body = document.body;
 
-    // Check for the theme in localStorage and apply the corresponding class
-    if (localStorage.getItem("theme") === "light") {
+    if (Theme() === "light") {
         body.classList.add("light-mode");
         darkModeToggle.textContent = "Dark Mode";
     } else {
@@ -12,18 +12,26 @@
         darkModeToggle.textContent = "Light Mode";
     }
 
-    // Toggle the theme on button click
     darkModeToggle.addEventListener("click", function () {
         if (body.classList.contains("light-mode")) {
             body.classList.remove("light-mode");
             body.classList.add("dark-mode");
-            localStorage.setItem("theme", "dark");
+            Theme("dark");
             darkModeToggle.textContent = "Light Mode";
         } else {
             body.classList.remove("dark-mode");
             body.classList.add("light-mode");
-            localStorage.setItem("theme", "light");
+            Theme("light");
             darkModeToggle.textContent = "Dark Mode";
         }
     });
+
 });
+function Theme(newTheme) {
+    if (GDPR.cookieStatus() === 'accept') {
+        if (newTheme) {
+            localStorage.setItem("theme", newTheme);
+        }
+        return localStorage.getItem("theme")
+    }
+}

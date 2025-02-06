@@ -1,77 +1,81 @@
 class GDPR {
-
     constructor() {
+
+
         this.showStatus();
         this.showContent();
         this.bindEvents();
 
-        if(this.cookieStatus() !== 'accept') this.showGDPR();
+        // Hide GDPR if already accepted
+        if (GDPR.cookieStatus() === 'accept') {
+            this.hideGDPR();
+        } else {
+            this.showGDPR();
+        }
     }
 
     bindEvents() {
-        let buttonAccept = document.querySelector('.gdpr-consent__button--accept');
-        buttonAccept.addEventListener('click', () => {
-            this.cookieStatus('accept');
-            this.showStatus();
-            this.showContent();
-            this.hideGDPR();
-        });
+        const buttonAccept = document.querySelector('.gdpr-consent__button--accept');
+        const buttonReject = document.querySelector('.gdpr-consent__button--reject');
 
+        if (buttonAccept) {
+            buttonAccept.addEventListener('click', () => {
+                GDPR.cookieStatus('accept');
+                this.showStatus();
+                this.showContent();
+                this.hideGDPR();
+            });
+        }
 
-//student uitwerking
-
-
+        if (buttonReject) {
+            buttonReject.addEventListener('click', () => {
+                GDPR.cookieStatus('reject');
+                this.showStatus();
+                this.showContent();
+                this.hideGDPR();
+            });
+        }
     }
 
     showContent() {
-        this.resetContent();
-        const status = this.cookieStatus() == null ? 'not-chosen' : this.cookieStatus();
-        const element = document.querySelector(`.content-gdpr-${status}`);
-        element.classList.add('show');
-
-    }
-
-    resetContent(){
-        const classes = [
-            '.content-gdpr-accept',
-
-//student uitwerking
-
-            '.content-gdpr-not-chosen'];
-
-        for(const c of classes){
-            document.querySelector(c).classList.add('hide');
-            document.querySelector(c).classList.remove('show');
+        const status = GDPR.cookieStatus();
+        if (status === 'accept') {
+            console.log("Cookies accepted: Content can be personalized.");
+        } else if (status === 'reject') {
+            console.log("Cookies rejected: Content remains generic.");
+        } else {
+            console.log("No cookie choice made yet.");
         }
     }
 
     showStatus() {
-        document.getElementById('content-gpdr-consent-status').innerHTML =
-            this.cookieStatus() == null ? 'Niet gekozen' : this.cookieStatus();
+        console.log(GDPR.cookieStatus() === null ? 'Niet gekozen' : GDPR.cookieStatus());
     }
 
-    cookieStatus(status) {
 
-        if (status) localStorage.setItem('gdpr-consent-choice', status);
-
-//student uitwerking
-
-        return localStorage.getItem('gdpr-consent-choice');
+    hideGDPR() {
+        const gdprSection = document.querySelector('.gdpr-consent');
+        if (gdprSection) {
+            gdprSection.classList.add('hide');
+            gdprSection.classList.remove('show');
+        }
     }
 
-//student uitwerking
-
-
-    hideGDPR(){
-        document.querySelector(`.gdpr-consent`).classList.add('hide');
-        document.querySelector(`.gdpr-consent`).classList.remove('show');
+    showGDPR() {
+        const gdprSection = document.querySelector('.gdpr-consent');
+        if (gdprSection) {
+            gdprSection.classList.remove('hide');
+            gdprSection.classList.add('show');
+        }
     }
-
-    showGDPR(){
-        document.querySelector(`.gdpr-consent`).classList.add('show');
+    static cookieStatus(status) {
+        if (status) {
+            localStorage.setItem("gdpr-consent-choice", status);
+        }
+        return localStorage.getItem("gdpr-consent-choice");
     }
-
 }
 
-const gdpr = new GDPR();
-
+document.addEventListener('DOMContentLoaded', () => {
+    const gdpr = new GDPR();
+});
