@@ -1,17 +1,17 @@
 class GDPR {
     constructor() {
+        if (GDPR.cookieStatus() === 'accept') {
+            this.hideGDPR();
+            return;
+        } 
 
 
         this.showStatus();
         this.showContent();
         this.bindEvents();
 
-        // Hide GDPR if already accepted
-        if (GDPR.cookieStatus() === 'accept') {
-            this.hideGDPR();
-        } else {
-            this.showGDPR();
-        }
+        this.showGDPR();
+        
     }
 
     bindEvents() {
@@ -68,6 +68,7 @@ class GDPR {
             gdprSection.classList.add('show');
         }
     }
+
     static cookieStatus(status) {
         if (status) {
             localStorage.setItem("gdpr-consent-choice", status);
