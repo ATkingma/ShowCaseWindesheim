@@ -37,3 +37,4 @@ async function Theme(newTheme = null) {
     }
     return "dark";
 }
+
