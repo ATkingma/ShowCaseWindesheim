@@ -1,6 +1,6 @@
 class GDPR {
     constructor() {
-        if (GDPR.cookieStatus() === 'accept') {
+        if (GDPR.cookieStatus() === 'accept' || GDPR.cookieStatus() === 'reject') {
             this.hideGDPR();
             return;
         } 
