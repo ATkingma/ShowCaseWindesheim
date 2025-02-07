@@ -50,16 +50,30 @@
 
     <!-- GDPR Consent Banner -->
     <section class="gdpr-consent hide">
-        <div class="gdpr-consent__description">
-            <p>
-                Deze website gebruikt cookies.
-                We gebruiken cookies om content te personaliseren, voor social media en het analyseren
-                van verkeer op de website, advertenties.
-            </p>
-        </div>
-        <div class="gdpr-consent__choice">
-            <button class="gdpr-consent__button--accept">Ja, natuurlijk</button>
-            <button class="gdpr-consent__button--reject">Neu, misschien later</button>
+        <div class="gdpr-consent__content">
+            <div class="gdpr-consent__description">
+                <p><strong>Wij hechten waarde aan je privacy!</strong></p>
+                <p>Voordat je verdergaat, willen we je informeren over hoe we je gegevens gebruiken:</p>
+
+                <ul>
+                    <li>
+                        <strong>Welke gegevens verzamelen we?</strong><br>
+                        Je voornaam, achternaam, telefoonnummer en e-mailadres worden verzonden naar de ontwikkelaar zodra je op "Verzenden" klikt. Dit stelt de ontwikkelaar in staat om later contact met je op te nemen als je geïnteresseerd bent.
+                    </li>
+                    <li><strong>Wat slaan we verder op?</strong></li>
+                    <ul class="gdpr-consent__list">
+                        <li>Je thema-voorkeur (light/dark mode)</li>
+                        <li>Of je cookies hebt geaccepteerd of niet</li>
+                    </ul>
+                </ul>
+
+                <p>✅ Door verder te gaan, ga je akkoord met deze voorwaarden.</p>
+            </div>
+
+            <div class="gdpr-consent__choice">
+                <button class="gdpr-consent__button gdpr-consent__button--accept">Akkoord</button>
+                <button class="gdpr-consent__button gdpr-consent__button--reject">Weiger</button>
+            </div>
         </div>
     </section>
 
@@ -69,7 +83,6 @@
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
     <script src="~/js/gdpr.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

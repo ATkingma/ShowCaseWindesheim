@@ -5,6 +5,13 @@ builder.WebHost.ConfigureKestrel(options =>
     options.AddServerHeader = false;
 });
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always; 
+    options.Secure = CookieSecurePolicy.Always; 
+    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+});
+
 
 builder.Services.AddControllersWithViews();
 
@@ -26,6 +33,7 @@ app.Use(async (context, next) =>
     await next();
 });
 
+app.UseCookiePolicy();
 
 app.UseStaticFiles(new StaticFileOptions
 {

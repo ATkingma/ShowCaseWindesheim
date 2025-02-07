@@ -1,17 +1,20 @@
 class GDPR {
     constructor() {
-        if (GDPR.cookieStatus() === 'accept' || GDPR.cookieStatus() === 'reject') {
+        this.init();
+    }
+
+    async init() {
+        const status = await GDPR.cookieStatus(); // Wacht op correcte waarde
+
+        if (status === 'accept' || status === 'reject') {
             this.hideGDPR();
             return;
-        } 
-
-
-        this.showStatus();
-        this.showContent();
-        this.bindEvents();
+        }
 
         this.showGDPR();
-        
+        this.bindEvents();
+        this.showStatus();
+        this.showContent();
     }
 
     bindEvents() {
@@ -19,26 +22,28 @@ class GDPR {
         const buttonReject = document.querySelector('.gdpr-consent__button--reject');
 
         if (buttonAccept) {
-            buttonAccept.addEventListener('click', () => {
-                GDPR.cookieStatus('accept');
-                this.showStatus();
-                this.showContent();
-                this.hideGDPR();
+            buttonAccept.addEventListener('click', async () => {
+                await GDPR.cookieStatus('accept');
+                this.updateUI();
             });
         }
 
         if (buttonReject) {
-            buttonReject.addEventListener('click', () => {
-                GDPR.cookieStatus('reject');
-                this.showStatus();
-                this.showContent();
-                this.hideGDPR();
+            buttonReject.addEventListener('click', async () => {
+                await GDPR.cookieStatus('reject');
+                this.updateUI();
             });
         }
     }
 
-    showContent() {
-        const status = GDPR.cookieStatus();
+    async updateUI() {
+        this.showStatus();
+        this.showContent();
+        this.hideGDPR();
+    }
+
+    async showContent() {
+        const status = await GDPR.cookieStatus();
         if (status === 'accept') {
             console.log("Cookies accepted: Content can be personalized.");
         } else if (status === 'reject') {
@@ -48,10 +53,10 @@ class GDPR {
         }
     }
 
-    showStatus() {
-        console.log(GDPR.cookieStatus() === null ? 'Niet gekozen' : GDPR.cookieStatus());
+    async showStatus() {
+        const status = await GDPR.cookieStatus();
+        console.log(status === null ? 'Niet gekozen' : status);
     }
-
 
     hideGDPR() {
         const gdprSection = document.querySelector('.gdpr-consent');
@@ -69,14 +74,45 @@ class GDPR {
         }
     }
 
-    static cookieStatus(status) {
-        if (status) {
-            localStorage.setItem("gdpr-consent-choice", status);
+    static async cookieStatus(status = null) {
+        if (status !== null) {
+            await GDPR.handleCookie('gdpr-consent-choice', status);
         }
-        return localStorage.getItem("gdpr-consent-choice");
+        return await GDPR.handleCookie('gdpr-consent-choice');
     }
+
+    static async handleCookie(name, value = null, days = 365) {
+        if (value !== null) {
+            document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${new Date(Date.now() + days * 86400000).toUTCString()}; path=/; Secure; SameSite=Strict`;
+
+            await fetch(`/Cookie/SetCookie?name=${encodeURIComponent(name)}&value=${encodeURIComponent(value)}&days=${days}`, {
+                method: 'GET',
+                credentials: 'same-origin' 
+            });
+        } else {
+            const cookies = document.cookie.split('; ').map(cookie => cookie.split('='));
+            for (let [key, val] of cookies) {
+                if (key === encodeURIComponent(name)) return decodeURIComponent(val);
+            }
+
+            try {
+                const response = await fetch(`/Cookie/GetCookie?name=${encodeURIComponent(name)}`, {
+                    credentials: 'same-origin' 
+                });
+
+                if (response.ok) {
+                    return await response.text(); 
+                }
+            } catch (error) {
+                console.error("Error fetching cookie:", error);
+            }
+
+            return null; 
+        }
+    }
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const gdpr = new GDPR();
+    new GDPR();
 });

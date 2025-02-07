@@ -1,9 +1,9 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", async function () {
     const darkModeToggle = document.getElementById("darkModeToggle");
 
     const body = document.body;
-
-    if (Theme() === "light") {
+    let theme = await Theme();
+    if (theme === "light") {
         body.classList.add("light-mode");
         darkModeToggle.textContent = "Dark Mode";
     } else {
@@ -12,26 +12,28 @@
         darkModeToggle.textContent = "Light Mode";
     }
 
-    darkModeToggle.addEventListener("click", function () {
+    darkModeToggle.addEventListener("click", async function () {
         if (body.classList.contains("light-mode")) {
             body.classList.remove("light-mode");
             body.classList.add("dark-mode");
-            Theme("dark");
+            await Theme("dark");
             darkModeToggle.textContent = "Light Mode";
         } else {
             body.classList.remove("dark-mode");
             body.classList.add("light-mode");
-            Theme("light");
+            await Theme("light");
             darkModeToggle.textContent = "Dark Mode";
         }
     });
 
 });
-function Theme(newTheme) {
-    if (GDPR.cookieStatus() === 'accept') {
+
+async function Theme(newTheme = null) {
+    if (await GDPR.cookieStatus() === 'accept') {
         if (newTheme) {
-            localStorage.setItem("theme", newTheme);
+            await GDPR.handleCookie("theme", newTheme);
         }
-        return localStorage.getItem("theme")
+        return await GDPR.handleCookie("theme");
     }
+    return "dark";
 }
