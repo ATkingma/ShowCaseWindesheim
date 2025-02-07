@@ -1,0 +1,113 @@
+﻿.contact {
+    background-color: var(--profile-bg);
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+}
+
+
+h1 {
+    text-align: center;
+    color: var(--highlight-color);
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: center;
+    color: var(--sub-text-color);
+    font-size: 14px;
+}
+
+.form-contactpagina {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-contactpagina__inputelement {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+input[type="subject"],
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    outline: none;
+}
+
+textarea[name="message"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 16px;
+    resize: vertical;
+    outline: none;
+}
+
+    textarea[name="message"]:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+input[type="subject"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus {
+    border-color: var(--highlight-color);
+}
+
+input[type="submit"] {
+    padding: 10px;
+    background-color: var(--highlight-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+    input[type="submit"]:hover {
+        opacity: 0.8;
+    }
+
+/* Light Mode */
+.light-mode body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.light-mode .contact {
+    background-color: var(--profile-bg);
+    border-color: var(--border-color);
+}
+
+.light-mode input[type="text"],
+.light-mode input[type="email"],
+.light-mode input[type="tel"] {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.light-mode input[type="submit"] {
+    background-color: var(--highlight-color);
+    color: var(--text-color);
+}
