@@ -24,26 +24,17 @@ jobs:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Cache SonarQube Cloud scanner
-        id: cache-sonar-scanner
-        uses: actions/cache@v4
-        with:
-          path: C:\Users\runner\.dotnet\tools
-          key: ${{ runner.os }}-sonar-scanner-${{ hashFiles('**/*.csproj') }}
-          restore-keys: ${{ runner.os }}-sonar-scanner
       - name: Install SonarQube Cloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory -Force
           dotnet tool install --global dotnet-sonarscanner
-          $env:Path += ";C:\Users\runner\.dotnet\tools"
+          echo "C:\Users\runneradmin\.dotnet\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
           cd "webdev-showcase-studentversie-main/UC1-Profielpagina"
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"ATkingma_ShowCaseWindesheim" /o:"atkingma" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet-sonarscanner begin /k:"ATkingma_ShowCaseWindesheim" /o:"atkingma" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build Showcase-Profielpagina.sln
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
