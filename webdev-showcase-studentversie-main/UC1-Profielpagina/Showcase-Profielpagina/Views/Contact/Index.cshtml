@@ -9,6 +9,7 @@
         <h1>Contact</h1>
         <p>@ViewBag.Message</p>
         <form method="post" class="form-contactpagina">
+            @Html.AntiForgeryToken()
 
             <div class="form-contactpagina__inputelement fx-col">
                 <label for="MailSubject">Onderwerp: </label>

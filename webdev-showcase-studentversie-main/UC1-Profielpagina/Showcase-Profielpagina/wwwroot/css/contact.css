@@ -87,27 +87,3 @@ input[type="submit"] {
     input[type="submit"]:hover {
         opacity: 0.8;
     }
-
-/* Light Mode */
-.light-mode body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-.light-mode .contact {
-    background-color: var(--profile-bg);
-    border-color: var(--border-color);
-}
-
-.light-mode input[type="text"],
-.light-mode input[type="email"],
-.light-mode input[type="tel"] {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    border-color: var(--border-color);
-}
-
-.light-mode input[type="submit"] {
-    background-color: var(--highlight-color);
-    color: var(--text-color);
-}

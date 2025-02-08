@@ -27,8 +27,6 @@ namespace Showcase_Profielpagina.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(Contactform form)
         {
-            Console.WriteLine("Contact form submission received.");
-
             if (!ModelState.IsValid)
             {
                 ViewBag.Message = "De ingevulde velden voldoen niet aan de gestelde voorwaarden";
