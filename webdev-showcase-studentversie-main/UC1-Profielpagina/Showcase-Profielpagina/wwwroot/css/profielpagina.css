@@ -113,48 +113,6 @@
     display: block;
 }
 
-.skill-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.skill-item {
-    margin-bottom: 20px;
-}
-
-.skill-label {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: white;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.skill-bar-container {
-    margin-top: 5px;
-    width: 100%;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    height: 10px;
-    position: relative;
-    overflow: hidden;
-}
-
-.skill-bar {
-    height: 100%;
-    border-radius: 4px;
-}
-
-.skill-experience {
-    margin-top: 5px;
-    font-size: 12px;
-    color: var(--sub-text-color);
-}
-
 .profile-content__period {
     font-size: 15px;
     color: var(--sub-text-color);

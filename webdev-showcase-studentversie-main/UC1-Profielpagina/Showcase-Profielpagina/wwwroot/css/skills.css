@@ -1,0 +1,114 @@
+﻿.skill-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.skill-item {
+    margin-bottom: 20px;
+}
+
+.skill-label {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* Achtergrondkleuren voor labels */
+.csharp {
+    background-color: #1E90FF;
+}
+
+.unity {
+    background-color: #9932CC;
+}
+
+.git {
+    background-color: #E74C3C;
+}
+
+.javascript {
+    background-color: #c5d303;
+}
+
+.java {
+    background-color: #00FA9A;
+}
+
+.sql {
+    background-color: #6A5ACD;
+}
+
+.php {
+    background-color: #4169E1;
+}
+
+.playcanvas {
+    background-color: #FF7F50;
+}
+
+.skill-bar-container {
+    margin-top: 5px;
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    height: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-bar {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.csharp-bar {
+    width: 80%;
+    background-color: #1E90FF;
+}
+
+.unity-bar {
+    width: 80%;
+    background-color: #9932CC;
+}
+
+.git-bar {
+    width: 40%;
+    background-color: #E74C3C;
+}
+
+.javascript-bar {
+    width: 30%;
+    background-color: #c5d303;
+}
+
+.java-bar {
+    width: 20%;
+    background-color: #00FA9A;
+}
+
+.sql-bar {
+    width: 15%;
+    background-color: #6A5ACD;
+}
+
+.php-bar {
+    width: 15%;
+    background-color: #4169E1;
+}
+
+.playcanvas-bar {
+    width: 10%;
+    background-color: #FF7F50;
+}
+
+.skill-experience {
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--sub-text-color);
+}
