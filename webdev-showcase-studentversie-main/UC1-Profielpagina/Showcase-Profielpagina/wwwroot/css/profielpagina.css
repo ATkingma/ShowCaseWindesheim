@@ -68,6 +68,10 @@
 .profile-content {
     font-size: 20px;
 }
+.profile-content__description {
+    color: var(--text-color);
+    font-size: 20px;
+}
 
 .profile-content__category-title {
     color: var(--highlight-color);
@@ -87,6 +91,13 @@
     padding-top: 20px;
     color: var(--sub-text-color);
     text-align: center
+}
+
+
+.profile-content__institute {
+    color: var(--text-color);
+    text-align: left;
+    font-size: 16px;
 }
 
 .custom-line--thick {
