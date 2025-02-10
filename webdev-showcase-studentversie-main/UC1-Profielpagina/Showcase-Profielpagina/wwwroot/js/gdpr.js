@@ -97,18 +97,29 @@ class GDPR {
 
             try {
                 const response = await fetch(`/Cookie/GetCookie?name=${encodeURIComponent(name)}`, {
-                    credentials: 'same-origin' 
+                    method: 'GET',
+                    credentials: 'same-origin',
                 });
 
-                if (response.ok) {
-                    return await response.text(); 
+                if (response.status === 200) {
+                    const cookieValue = await response.text();
+                    if (cookieValue) {
+                        return cookieValue;
+                    } else {
+                        console.warn("Cookie value is empty.");
+                        return null;
+                    }
+                } else if (response.status === 404) {
+                    console.log("Cookie not found on the server. This is expected if it hasn't been set yet.");
+                    return null;
                 }
             } catch (error) {
                 console.error("Error fetching cookie:", error);
             }
 
-            return null; 
+            return null;
         }
+
     }
 
 }

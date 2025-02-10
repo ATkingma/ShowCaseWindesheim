@@ -4,6 +4,7 @@ namespace Showcase_Profielpagina.Controllers
 {
     public class CookieController : Controller
     {
+        [HttpGet]
         public IActionResult SetCookie(string name, string value, int days = 365)
         {
             var options = new CookieOptions
@@ -18,6 +19,7 @@ namespace Showcase_Profielpagina.Controllers
             return Ok("Cookie set successfully");
         }
 
+        [HttpGet]
         public IActionResult GetCookie(string name)
         {
             if (Request.Cookies.TryGetValue(name, out var value))

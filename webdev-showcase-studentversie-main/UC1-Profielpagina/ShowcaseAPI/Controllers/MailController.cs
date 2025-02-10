@@ -15,7 +15,6 @@ namespace ShowcaseAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync([Bind("FirstName, LastName, Email, Phone")] Contactform form)
         {
-            return BadRequest("aangekomen dikkertje");
             if (!ModelState.IsValid)
             {
                 return BadRequest("De ingevulde velden voldoen niet aan de gestelde voorwaarden");

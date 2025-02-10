@@ -3,14 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="
+          default-src 'self';
+          script-src 'self';
+          style-src 'self';
+          img-src 'self' data:;
+          connect-src 'self' http://localhost:62991 http://localhost:44343 wss://localhost:44343 ws://localhost:62991;
+        ">
+
     <title>@ViewData["Title"] - Showcase_Profielpagina</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/profielpagina.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/gdpr.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Showcase_Profielpagina.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/skills.css" asp-append-version="true" />
 </head>
 <body>
