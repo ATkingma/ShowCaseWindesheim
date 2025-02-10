@@ -1,4 +1,4 @@
-﻿// Access the form fields
+﻿
 const inputEmail = document.getElementById('email');
 const inputSubject = document.getElementById('subject');
 const inputFirstName = document.getElementById('firstname');
@@ -10,14 +10,14 @@ const validateEmail = () => {
     if (inputEmail.validity.typeMismatch) {
         inputEmail.setCustomValidity("Voer een geldig e-mailadres in!");
         inputEmail.reportValidity();
-        return false; // Invalid
+        return false; 
     } else if (inputEmail.value.length > 80) {
         inputEmail.setCustomValidity("Email moet niet langer dan 80 tekens zijn!");
         inputEmail.reportValidity();
-        return false; // Invalid
+        return false;
     } else {
         inputEmail.setCustomValidity("");
-        return true; // Valid
+        return true;
     }
 };
 
@@ -25,14 +25,14 @@ const validateSubject = () => {
     if (inputSubject.value.trim() === "") {
         inputSubject.setCustomValidity("Onderwerp is verplicht.");
         inputSubject.reportValidity();
-        return false; // Invalid
+        return false; 
     } else if (inputSubject.value.length > 200) {
         inputSubject.setCustomValidity("Onderwerp mag niet langer dan 200 tekens zijn.");
         inputSubject.reportValidity();
-        return false; // Invalid
+        return false;
     } else {
         inputSubject.setCustomValidity("");
-        return true; // Valid
+        return true; 
     }
 };
 
@@ -40,14 +40,14 @@ const validateFirstName = () => {
     if (inputFirstName.value.trim() === "") {
         inputFirstName.setCustomValidity("Voornaam is verplicht.");
         inputFirstName.reportValidity();
-        return false; // Invalid
+        return false; 
     } else if (inputFirstName.value.length > 60) {
         inputFirstName.setCustomValidity("Voornaam mag niet langer dan 60 tekens zijn.");
         inputFirstName.reportValidity();
-        return false; // Invalid
+        return false; 
     } else {
         inputFirstName.setCustomValidity("");
-        return true; // Valid
+        return true; 
     }
 };
 
@@ -55,14 +55,14 @@ const validateLastName = () => {
     if (inputLastName.value.trim() === "") {
         inputLastName.setCustomValidity("Achternaam is verplicht.");
         inputLastName.reportValidity();
-        return false; // Invalid
+        return false; 
     } else if (inputLastName.value.length > 60) {
         inputLastName.setCustomValidity("Achternaam mag niet langer dan 60 tekens zijn.");
         inputLastName.reportValidity();
-        return false; // Invalid
+        return false; 
     } else {
         inputLastName.setCustomValidity("");
-        return true; // Valid
+        return true; 
     }
 };
 
@@ -71,10 +71,10 @@ const validatePhone = () => {
     if (!phoneRegex.test(inputPhone.value)) {
         inputPhone.setCustomValidity("Vul een geldig telefoonnummer in (bijvoorbeeld 0612345678 of +31612345678).");
         inputPhone.reportValidity();
-        return false; // Invalid
+        return false;
     } else {
         inputPhone.setCustomValidity("");
-        return true; // Valid
+        return true;
     }
 };
 
@@ -82,19 +82,19 @@ const validateMessage = () => {
     if (inputMessage.value.trim() === "") {
         inputMessage.setCustomValidity("Bericht is verplicht.");
         inputMessage.reportValidity();
-        return false; // Invalid
+        return false; 
     } else if (inputMessage.value.length > 600) {
         inputMessage.setCustomValidity("Bericht mag niet langer dan 600 tekens zijn.");
         inputMessage.reportValidity();
-        return false; // Invalid
+        return false; 
     } else {
         inputMessage.setCustomValidity("");
-        return true; // Valid
+        return true; 
     }
 };
 
 const validateForm = () => {
-    const isValid = true;
+    let isValid = true; 
 
     isValid = isValid && validateEmail();
     isValid = isValid && validateSubject();
@@ -105,6 +105,7 @@ const validateForm = () => {
 
     return isValid;
 };
+
 
 inputEmail.addEventListener("blur", validateEmail);
 inputEmail.addEventListener("input", validateEmail);
@@ -126,7 +127,7 @@ inputMessage.addEventListener("input", validateMessage);
 
 const form = document.querySelector('.form-contactpagina');
 
-form.addEventListener('submit', function (event) {
+form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
     if (!validateForm()) {
@@ -144,9 +145,8 @@ form.addEventListener('submit', function (event) {
     formData.append('Phone', form.phone.value);         
     formData.append('Message', form.message.value); 
     formData.append('__RequestVerificationToken', csrfToken);
-    console.log(formData);
 
-    fetch('/contact/submitcontactform', {
+    await fetch('/contact/index', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -155,12 +155,12 @@ form.addEventListener('submit', function (event) {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Netwerkrespons was niet ok');
+                throw new Error(response);
             }
             return response.text();
         })
         .then(data => {
-            console.log('Formulier succesvol ingediend:', data);
+            console.log('Formulier succesvol ingediend:');
             form.reset(); 
         })
         .catch(error => {

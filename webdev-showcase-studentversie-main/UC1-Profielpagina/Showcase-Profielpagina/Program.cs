@@ -22,7 +22,7 @@
         builder.Services.AddControllersWithViews();
         builder.Services.AddHttpClient();
         var app = builder.Build();
-
+        app.UseCors("AllowLocalhost");
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");

@@ -22,7 +22,7 @@ namespace Showcase_Profielpagina.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SubmitContactForm(Contactform form)
+        public async Task<ActionResult> Index(Contactform form)
         {
             if (!ModelState.IsValid)
             {

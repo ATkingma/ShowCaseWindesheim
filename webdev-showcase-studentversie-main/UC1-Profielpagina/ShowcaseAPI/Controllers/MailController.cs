@@ -3,6 +3,7 @@ using MimeKit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using ShowcaseAPI.Models;
+using Microsoft.Extensions.Options;
 using System.Text;
 
 namespace ShowcaseAPI.Controllers
@@ -11,7 +12,13 @@ namespace ShowcaseAPI.Controllers
     [ApiController]
     public class MailController : ControllerBase
     {
-        // POST api/<MailController>
+        private readonly EmailSettings _emailSettings;
+
+        public MailController(IOptions<EmailSettings> emailSettings)
+        {
+            _emailSettings = emailSettings.Value;
+        }
+
         [HttpPost]
         public async Task<ActionResult> PostAsync([Bind("FirstName, LastName, Email, Phone")] Contactform form)
         {
@@ -28,7 +35,6 @@ namespace ShowcaseAPI.Controllers
             var json = JsonConvert.SerializeObject(form, settings);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            //even een snelle test later email volledig maken.
             try
             {
                 var emailMessage = new MimeMessage();
@@ -45,9 +51,9 @@ namespace ShowcaseAPI.Controllers
                 var smtpClient = new MailKit.Net.Smtp.SmtpClient();
 
                 await smtpClient.ConnectAsync("smtp.mailtrap.io", 587, false);
-                await smtpClient.AuthenticateAsync("name", "password");//deze moet ff van de secrets opgehaald worden
-                await smtpClient.SendAsync(emailMessage); 
-                await smtpClient.DisconnectAsync(true); 
+                await smtpClient.AuthenticateAsync(_emailSettings.Username, _emailSettings.Password);
+                await smtpClient.SendAsync(emailMessage);
+                await smtpClient.DisconnectAsync(true);
 
                 return Ok("Het contactformulier is verstuurd.");
             }
