@@ -102,7 +102,6 @@ const validateForm = () => {
     isValid = isValid && validateLastName();
     isValid = isValid && validatePhone();
     isValid = isValid && validateMessage();
-
     return isValid;
 };
 
@@ -127,11 +126,15 @@ inputMessage.addEventListener("input", validateMessage);
 
 const form = document.querySelector('.form-contactpagina');
 
+
+import flashMessage from './flashMessage.js';
+
+
 form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
     if (!validateForm()) {
-        //hier dan die feedback rommel
+        flashMessage("Er is iets misgegaan. Check de velden.", "error");
         return; // Prevent submission if form is invalid
     }
 
@@ -146,24 +149,37 @@ form.addEventListener('submit', async function (event) {
     formData.append('Message', form.message.value); 
     formData.append('__RequestVerificationToken', csrfToken);
 
-    fetch('/contact/index', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded' 
-        },
-        body: formData
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Networkrespons was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log('Formulier succesvol ingediend:');
-            return false;
-        })
-        .catch(error => {
-            console.error('Er was een probleem met de formulierinzending:', error);
+    form.style.pointerEvents = "none";
+    form.style.opacity = "0.25";
+
+    try {
+        const response = await fetch('/contact/index', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData
         });
+
+        if (!response.ok) {
+            flashMessage("Er is een probleem met de server. Status: " + response.status);
+            throw new Error('Er is een probleem met de server. Status: ' + response.status);
+        }
+
+        const data = await response.text();
+
+        if (data.includes("Er is iets misgegaan")) {
+            throw new Error("De server heeft een foutmelding geretourneerd.");
+        }
+
+        console.log('Formulier succesvol ingediend:', data);
+        flashMessage("Formulier succesvol ingediend!", "success");
+        form.reset();
+    } catch (error) {
+        console.error('Fout bij formulierinzending:', error);
+        flashMessage("Er is iets misgegaan. Probeer het opnieuw.", "error");
+    } finally {
+        form.style.pointerEvents = "auto";
+        form.style.opacity = "1";
+    }
 });
