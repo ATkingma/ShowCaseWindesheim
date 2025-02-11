@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MimeKit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using ShowcaseAPI.Models;
 using Microsoft.Extensions.Options;
 using System.Text;
+using System.Net.Mail;
+using System.Net;
 
 namespace ShowcaseAPI.Controllers
 {
@@ -18,49 +19,35 @@ namespace ShowcaseAPI.Controllers
         {
             _emailSettings = emailSettings.Value;
         }
-
         [HttpPost]
-        public async Task<ActionResult> PostAsync([Bind("FirstName, LastName, Email, Phone")] Contactform form)
+        public ActionResult Post([Bind("FirstName, LastName, Email, Phone, MailSubject, Message")] Contactform form)
         {
-            if (!ModelState.IsValid)
+            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
             {
-                return BadRequest("De ingevulde velden voldoen niet aan de gestelde voorwaarden");
-            }
-
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                Credentials = new NetworkCredential(_emailSettings.Username, _emailSettings.Password),
+                EnableSsl = true
             };
-
-            var json = JsonConvert.SerializeObject(form, settings);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            MailAddress from = new MailAddress(form.Email);
+            MailAddress to = new MailAddress("timmealbertkingma@email.com");
+            MailMessage email = new MailMessage(from, to);
+            email.Subject = form.MailSubject;
+            email.Body = $"geachte, student\n\n" +
+                       $"\n{form.Message}\n\n" +
+                       $"met vriendelijke groet,\n\n\n" +
+                       $"{form.FirstName} {form.LastName}\n\n" +
+                       $"Telefoonnummer: {form.Phone}";
 
             try
             {
-                var emailMessage = new MimeMessage();
-                emailMessage.From.Add(new MailboxAddress("Your App", "porominez@gmail.com"));
-                emailMessage.To.Add(new MailboxAddress("Recipient", "keizerxjwz4@gmail.com"));
-                emailMessage.Subject = "New Contact Form Submission";
-
-                var bodyBuilder = new BodyBuilder
-                {
-                    TextBody = $"Form Data: {json}"
-                };
-                emailMessage.Body = bodyBuilder.ToMessageBody();
-
-                var smtpClient = new MailKit.Net.Smtp.SmtpClient();
-
-                await smtpClient.ConnectAsync("smtp.mailtrap.io", 587, false);
-                await smtpClient.AuthenticateAsync(_emailSettings.Username, _emailSettings.Password);
-                await smtpClient.SendAsync(emailMessage);
-                await smtpClient.DisconnectAsync(true);
-
-                return Ok("Het contactformulier is verstuurd.");
+                client.Send(email);
+                return Ok(new { message = "Email succesvol verzonden" });
             }
-            catch (Exception ex)
+            catch (SmtpException ex)
             {
-                return BadRequest("Er is iets misgegaan bij het versturen van de e-mail: " + ex.Message);
+                Console.WriteLine(ex.ToString());
+                return StatusCode(500, new { message = "Er is een fout opgetreden bij het verzenden van de e-mail.", error = ex.Message });
             }
+
         }
     }
 }

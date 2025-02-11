@@ -146,25 +146,24 @@ form.addEventListener('submit', async function (event) {
     formData.append('Message', form.message.value); 
     formData.append('__RequestVerificationToken', csrfToken);
 
-    await fetch('/contact/index', {
+    fetch('/contact/index', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded' 
         },
         body: formData
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error(response);
+                throw new Error('Networkrespons was not ok');
             }
             return response.text();
         })
         .then(data => {
             console.log('Formulier succesvol ingediend:');
-            form.reset(); 
+            return false;
         })
         .catch(error => {
             console.error('Er was een probleem met de formulierinzending:', error);
-            alert(error.message);
         });
 });

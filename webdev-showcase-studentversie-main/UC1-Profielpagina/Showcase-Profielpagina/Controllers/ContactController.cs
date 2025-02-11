@@ -60,10 +60,6 @@ namespace Showcase_Profielpagina.Controllers
                 return View();
             }
 
-            
-
-
-
             ViewBag.Message = "Het contactformulier is verstuurd";
 
             return View();
