@@ -26,7 +26,7 @@ namespace Showcase_Profielpagina.Controllers
             {
                 return Content(value);
             }
-            return NotFound();
+            return Content("Not set yet");
         }
     }
 }
