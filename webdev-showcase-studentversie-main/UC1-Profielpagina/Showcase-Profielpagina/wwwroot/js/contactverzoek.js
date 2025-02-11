@@ -126,7 +126,6 @@ inputMessage.addEventListener("input", validateMessage);
 
 const form = document.querySelector('.form-contactpagina');
 
-
 import flashMessage from './flashMessage.js';
 
 
@@ -172,7 +171,6 @@ form.addEventListener('submit', async function (event) {
             throw new Error("De server heeft een foutmelding geretourneerd.");
         }
 
-        console.log('Formulier succesvol ingediend:', data);
         flashMessage("Formulier succesvol ingediend!", "success");
         form.reset();
     } catch (error) {
