@@ -5,6 +5,10 @@ const inputFirstName = document.getElementById('firstname');
 const inputLastName = document.getElementById('lastname');
 const inputPhone = document.getElementById('phone');
 const inputMessage = document.getElementById('message');
+const response = await fetch('/api/recaptcha-sitekey');
+const data = await response.json();
+
+const sitekey = data.siteKey;
 
 const validateEmail = () => {
     if (inputEmail.validity.typeMismatch) {
@@ -141,52 +145,57 @@ form.addEventListener('submit', async function (event) {
     const spinner = new loadingSpinner();
     spinner.start();
 
-    const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+    grecaptcha.ready(function () {
+        grecaptcha.execute(sitekey, {  action: 'submit' }).then(async function (token) {
+            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-    const formData = new URLSearchParams();
-    formData.append('email', form.email.value);
-    formData.append('MailSubject', form.subject.value); 
-    formData.append('FirstName', form.firstname.value);  
-    formData.append('LastName', form.lastname.value);   
-    formData.append('Phone', form.phone.value);         
-    formData.append('Message', form.message.value); 
-    formData.append('__RequestVerificationToken', csrfToken);
+            const formData = new URLSearchParams();
+            formData.append('email', form.email.value);
+            formData.append('MailSubject', form.subject.value);
+            formData.append('FirstName', form.firstname.value);
+            formData.append('LastName', form.lastname.value);
+            formData.append('Phone', form.phone.value);
+            formData.append('Message', form.message.value);
+            formData.append('gRecaptchaResponse', token);
+            formData.append('__RequestVerificationToken', csrfToken);
+            form.style.pointerEvents = "none";
+            form.style.opacity = "0.25";
 
-    form.style.pointerEvents = "none";
-    form.style.opacity = "0.25";
+            try {
+                const response = await fetch('/contact/index', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: formData
+                });
 
-    try {
-        const response = await fetch('/contact/index', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: formData
+                if (!response.ok) {
+                    flashMessage("Er is een probleem met de server. Status: " + response.status);
+                    spinner.stop();
+                    throw new Error('Er is een probleem met de server. Status: ' + response.status);
+                }
+
+                const data = await response.text();
+
+                if (data.includes("Er is iets misgegaan")) {
+                    flashMessage("Er is iets misgegaan. Probeer het opnieuw.", "error");
+                    spinner.stop();
+                    throw new Error("De server heeft een foutmelding geretourneerd.");
+                }
+
+                flashMessage("Formulier succesvol ingediend!", "success");
+                form.reset();
+                spinner.stop();
+            } catch (error) {
+                console.error('Fout bij formulierinzending:', error);
+                flashMessage("Er is iets misgegaan. Probeer het opnieuw.", "error");
+                spinner.stop();
+            } finally {
+                form.style.pointerEvents = "auto";
+                form.style.opacity = "1";
+            }
         });
-
-        if (!response.ok) {
-            flashMessage("Er is een probleem met de server. Status: " + response.status);
-            spinner.stop();
-            throw new Error('Er is een probleem met de server. Status: ' + response.status);
-        }
-
-        const data = await response.text();
-
-        if (data.includes("Er is iets misgegaan")) {
-            throw new Error("De server heeft een foutmelding geretourneerd.");
-            flashMessage("Er is iets misgegaan. Probeer het opnieuw.", "error");
-            spinner.stop();
-        }
-
-        flashMessage("Formulier succesvol ingediend!", "success");
-        form.reset();
-        spinner.stop();
-    } catch (error) {
-        console.error('Fout bij formulierinzending:', error);
-        flashMessage("Er is iets misgegaan. Probeer het opnieuw.", "error");
-        spinner.stop();
-    } finally {
-        form.style.pointerEvents = "auto";
-        form.style.opacity = "1";
-    }
+    });
 });
+

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Contactpagina";
 }
-
+<script type="module" src="~/js/recaptchaLoader.js" asp-append-version="true"></script>
 <div class="page">
     <section class="contact">
 
@@ -10,7 +10,7 @@
         <p>@ViewBag.Message</p>
         <div id="loading-container" class="loading-container">
         </div>
-        <form method="post" class="form-contactpagina">
+        <form method="post" class="form-contactpagina" id="contact-form">
             @Html.AntiForgeryToken()
 
             <div class="form-contactpagina__inputelement fx-col">
@@ -40,16 +40,16 @@
 
             <div class="form-contactpagina__inputelement">
                 <label for="message">Bericht: </label>
-                <textarea asp-for="Message" name="message" id="message" required></textarea >
+                <textarea asp-for="Message" name="message" id="message" required></textarea>
             </div>
 
+            <input type="hidden" id="recaptcha-response" name="recaptcha-response">
 
             <div class="form-contactpagina__inputelement">
                 <input type="submit" value="Verstuur!">
             </div>
-
-
         </form>
+
 
     </section>
 </div>

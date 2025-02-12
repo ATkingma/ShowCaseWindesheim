@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Showcase_Profielpagina</RootNamespace>
+    <UserSecretsId>fe0b806b-dd4c-407e-9960-aa0371b2dbb8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
