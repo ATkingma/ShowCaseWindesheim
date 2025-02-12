@@ -41,34 +41,46 @@ const validateSubject = () => {
 };
 
 const validateFirstName = () => {
+    const nameRegex = /^[A-Za-zÀ-ÿ]+$/; 
     if (inputFirstName.value.trim() === "") {
         inputFirstName.setCustomValidity("Voornaam is verplicht.");
         inputFirstName.reportValidity();
-        return false; 
+        return false;
     } else if (inputFirstName.value.length > 60) {
         inputFirstName.setCustomValidity("Voornaam mag niet langer dan 60 tekens zijn.");
         inputFirstName.reportValidity();
-        return false; 
+        return false;
+    } else if (!nameRegex.test(inputFirstName.value)) {
+        inputFirstName.setCustomValidity("Voornaam mag alleen letters bevatten.");
+        inputFirstName.reportValidity();
+        return false;
     } else {
         inputFirstName.setCustomValidity("");
-        return true; 
+        return true;
     }
 };
 
+
 const validateLastName = () => {
+    const nameRegex = /^[A-Za-zÀ-ÿ]+$/; 
     if (inputLastName.value.trim() === "") {
         inputLastName.setCustomValidity("Achternaam is verplicht.");
         inputLastName.reportValidity();
-        return false; 
+        return false;
     } else if (inputLastName.value.length > 60) {
         inputLastName.setCustomValidity("Achternaam mag niet langer dan 60 tekens zijn.");
         inputLastName.reportValidity();
-        return false; 
+        return false;
+    } else if (!nameRegex.test(inputLastName.value)) {
+        inputLastName.setCustomValidity("Achternaam mag alleen letters bevatten.");
+        inputLastName.reportValidity();
+        return false;
     } else {
         inputLastName.setCustomValidity("");
-        return true; 
+        return true;
     }
 };
+
 
 const validatePhone = () => {
     const phoneRegex = /^(?:\+(\d{1,3}))?(\d{9,15})$/;

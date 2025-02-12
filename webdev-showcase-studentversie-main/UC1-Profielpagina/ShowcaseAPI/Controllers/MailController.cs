@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Text;
 using System.Net.Mail;
 using System.Net;
+using ShowcaseAPI.Utilitys;
 
 namespace ShowcaseAPI.Controllers
 {
@@ -22,6 +23,12 @@ namespace ShowcaseAPI.Controllers
         [HttpPost]
         public ActionResult Post([Bind("FirstName, LastName, Email, Phone, MailSubject, Message")] Contactform form)
         {
+            var validationResult = ContactFormValidator.Validate(form);
+            if (!validationResult.isValid)
+            {
+                return BadRequest(new { message = validationResult.errorMessage });
+            }
+
             var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
             {
                 Credentials = new NetworkCredential(_emailSettings.Username, _emailSettings.Password),
