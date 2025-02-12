@@ -127,6 +127,7 @@ inputMessage.addEventListener("input", validateMessage);
 const form = document.querySelector('.form-contactpagina');
 
 import flashMessage from './flashMessage.js';
+import loadingSpinner from './loadingSpinner.js';
 
 
 form.addEventListener('submit', async function (event) {
@@ -136,6 +137,9 @@ form.addEventListener('submit', async function (event) {
         flashMessage("Er is iets misgegaan. Check de velden.", "error");
         return; // Prevent submission if form is invalid
     }
+
+    const spinner = new loadingSpinner();
+    spinner.start();
 
     const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
@@ -162,6 +166,7 @@ form.addEventListener('submit', async function (event) {
 
         if (!response.ok) {
             flashMessage("Er is een probleem met de server. Status: " + response.status);
+            spinner.stop();
             throw new Error('Er is een probleem met de server. Status: ' + response.status);
         }
 
@@ -169,13 +174,17 @@ form.addEventListener('submit', async function (event) {
 
         if (data.includes("Er is iets misgegaan")) {
             throw new Error("De server heeft een foutmelding geretourneerd.");
+            flashMessage("Er is iets misgegaan. Probeer het opnieuw.", "error");
+            spinner.stop();
         }
 
         flashMessage("Formulier succesvol ingediend!", "success");
         form.reset();
+        spinner.stop();
     } catch (error) {
         console.error('Fout bij formulierinzending:', error);
         flashMessage("Er is iets misgegaan. Probeer het opnieuw.", "error");
+        spinner.stop();
     } finally {
         form.style.pointerEvents = "auto";
         form.style.opacity = "1";
