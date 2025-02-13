@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Showcase_Profielpagina.Controllers
 {
@@ -13,6 +14,7 @@ namespace Showcase_Profielpagina.Controllers
             _recaptchaSiteKey = configuration["Recaptcha:SiteKey"];
         }
 
+        [EnableRateLimiting("fixed")]
         [HttpGet("recaptcha-sitekey")]
         public IActionResult GetSiteKey()
         {
