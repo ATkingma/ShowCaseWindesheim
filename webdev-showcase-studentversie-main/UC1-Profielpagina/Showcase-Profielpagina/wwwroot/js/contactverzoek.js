@@ -159,8 +159,7 @@ form.addEventListener('submit', async function (event) {
 
     grecaptcha.ready(function () {
         grecaptcha.execute(sitekey, {  action: 'submit' }).then(async function (token) {
-            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
+            var csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
             const formData = new URLSearchParams();
             formData.append('email', form.email.value);
             formData.append('MailSubject', form.subject.value);

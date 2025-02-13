@@ -28,7 +28,6 @@ namespace Showcase_Profielpagina.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(Contactform form, string gRecaptchaResponse)
         {
-            Console.Write("recaptchaResponse");
             if (!ModelState.IsValid)
             {
                 ViewBag.Message = "De ingevulde velden voldoen niet aan de gestelde voorwaarden";
