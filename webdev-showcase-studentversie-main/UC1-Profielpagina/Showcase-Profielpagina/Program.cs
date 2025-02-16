@@ -57,11 +57,11 @@
                 "connect-src 'self' ws://localhost:* http://localhost:* wss://www.google.com https://www.google.com; " +
                 "frame-src 'self' https://www.google.com https://www.recaptcha.net; " +
                 "object-src 'none'; " +
-                "upgrade-insecure-requests;");
-
-            context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                "upgrade-insecure-requests;"+
+                "frame-ancestors 'self';");
             context.Response.Headers.Add("X-Frame-Options", "DENY");
 
+            context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
             await next();
         });
 
@@ -72,7 +72,8 @@
             OnPrepareResponse = ctx =>
             {
                 var fileName = ctx.File.Name;
-                if (fileName.EndsWith("Thumbs.db", StringComparison.OrdinalIgnoreCase) ||
+                if (fileName.EndsWith("/", StringComparison.OrdinalIgnoreCase) ||
+                    fileName.EndsWith("Thumbs.db", StringComparison.OrdinalIgnoreCase) ||
                     fileName.EndsWith(".DS_Store", StringComparison.OrdinalIgnoreCase) ||
                     fileName.StartsWith(".git", StringComparison.OrdinalIgnoreCase) ||
                     fileName.StartsWith(".svn", StringComparison.OrdinalIgnoreCase))

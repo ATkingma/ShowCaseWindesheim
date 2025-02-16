@@ -159,7 +159,6 @@ form.addEventListener('submit', async function (event) {
 
     grecaptcha.ready(function () {
         grecaptcha.execute(sitekey, {  action: 'submit' }).then(async function (token) {
-            var csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
             const formData = new URLSearchParams();
             formData.append('email', form.email.value);
             formData.append('MailSubject', form.subject.value);
@@ -168,6 +167,7 @@ form.addEventListener('submit', async function (event) {
             formData.append('Phone', form.phone.value);
             formData.append('Message', form.message.value);
             formData.append('gRecaptchaResponse', token);
+            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
             formData.append('__RequestVerificationToken', csrfToken);
             form.style.pointerEvents = "none";
             form.style.opacity = "0.25";
@@ -175,9 +175,6 @@ form.addEventListener('submit', async function (event) {
             try {
                 const response = await fetch('/contact/index', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
                     body: formData
                 });
 
