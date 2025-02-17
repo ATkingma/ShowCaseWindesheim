@@ -60,7 +60,6 @@ const validateFirstName = () => {
     }
 };
 
-
 const validateLastName = () => {
     const nameRegex = /^[A-Za-zÀ-ÿ]+$/; 
     if (inputLastName.value.trim() === "") {
@@ -80,7 +79,6 @@ const validateLastName = () => {
         return true;
     }
 };
-
 
 const validatePhone = () => {
     const phoneRegex = /^(?:\+(\d{1,3}))?(\d{9,15})$/;
@@ -120,7 +118,6 @@ const validateForm = () => {
     isValid = isValid && validateMessage();
     return isValid;
 };
-
 
 inputEmail.addEventListener("blur", validateEmail);
 inputEmail.addEventListener("input", validateEmail);

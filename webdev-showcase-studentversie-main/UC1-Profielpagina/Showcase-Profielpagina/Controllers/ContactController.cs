@@ -33,7 +33,8 @@ namespace Showcase_Profielpagina.Controllers
                 ViewBag.Message = "De ingevulde velden voldoen niet aan de gestelde voorwaarden";
                 return View();
             }
-            var recaptchaIsValid = await ValidateRecaptcha(gRecaptchaResponse);
+
+            bool recaptchaIsValid = await ValidateRecaptcha(gRecaptchaResponse);
 
             if (!recaptchaIsValid)
             {
@@ -70,7 +71,6 @@ namespace Showcase_Profielpagina.Controllers
 
         private async Task<bool> ValidateRecaptcha(string recaptchaResponse)
         {
-            Console.Write("");
             if (string.IsNullOrEmpty(recaptchaResponse))
             {
                 return false;
@@ -92,7 +92,7 @@ namespace Showcase_Profielpagina.Controllers
                 }
 
                 var jsonResponse = await recaptchaResponseMessage.Content.ReadAsStringAsync();
-                dynamic responseObject = JsonConvert.DeserializeObject(jsonResponse);
+                dynamic? responseObject = JsonConvert.DeserializeObject(jsonResponse);
 
                 return responseObject.success == true;
             }
