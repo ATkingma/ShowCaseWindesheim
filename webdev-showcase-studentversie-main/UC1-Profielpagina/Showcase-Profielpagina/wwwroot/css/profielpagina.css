@@ -1,4 +1,4 @@
-﻿/* Default (Dark Mode) Variables */
+﻿/*darkmoduss*/
 :root {
     --background-color: #1e1e1e;
     --text-color: white;
@@ -8,7 +8,6 @@
     --sub-text-color: #bbbdc1;
 }
 
-/* Light Mode Variables */
 .light-mode {
     --background-color: #faf8f8;
     --text-color: black;
@@ -35,7 +34,6 @@
     grid: auto;
 }
 
-/* Mobile version */
 .page {
     display: flex;
     flex-direction: column;
@@ -119,7 +117,7 @@
     display: flex;
 }
 
-/* Media Query for PC */
+/*voor pc*/
 @media only screen and (min-width: 800px) {
     .page {
         flex-direction: row; 

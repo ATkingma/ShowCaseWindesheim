@@ -74,7 +74,7 @@
 }
 
     .gdpr-consent__list li::before {
-        content: "• ";
+        content: "- ";
         color: var(--highlight-color);
         font-weight: bold;
     }

@@ -46,6 +46,7 @@ namespace Showcase_Profielpagina.Controllers
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
+            //bouwen van header etc
             var json = JsonConvert.SerializeObject(form, settings);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 

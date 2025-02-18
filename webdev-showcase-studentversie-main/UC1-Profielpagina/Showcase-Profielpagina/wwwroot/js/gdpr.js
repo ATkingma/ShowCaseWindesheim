@@ -4,7 +4,7 @@ class GDPR {
     }
 
     async init() {
-        const status = await GDPR.cookieStatus(); // Wacht op correcte waarde
+        const status = await GDPR.cookieStatus();
 
         if (status === 'accept' || status === 'reject') {
             this.hideGDPR();
@@ -13,8 +13,6 @@ class GDPR {
 
         this.showGDPR();
         this.bindEvents();
-        this.showStatus();
-        this.showContent();
     }
 
     bindEvents() {
@@ -37,26 +35,10 @@ class GDPR {
     }
 
     async updateUI() {
-        this.showStatus();
-        this.showContent();
         this.hideGDPR();
     }
 
-    async showContent() {
-        const status = await GDPR.cookieStatus();
-        if (status === 'accept') {
-            console.log("Cookies accepted: Content can be personalized.");
-        } else if (status === 'reject') {
-            console.log("Cookies rejected: Content remains generic.");
-        } else {
-            console.log("No cookie choice made yet.");
-        }
-    }
 
-    async showStatus() {
-        const status = await GDPR.cookieStatus();
-        console.log(status === null ? 'Niet gekozen' : status);
-    }
 
     hideGDPR() {
         const gdprSection = document.querySelector('.gdpr-consent');
@@ -85,10 +67,24 @@ class GDPR {
         if (value !== null) {
             document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${new Date(Date.now() + days * 86400000).toUTCString()}; path=/; Secure; SameSite=Strict`;
 
-            await fetch(`/Cookie/SetCookie?name=${encodeURIComponent(name)}&value=${encodeURIComponent(value)}&days=${days}`, {
-                method: 'GET',
-                credentials: 'same-origin' 
+            const response = await fetch(`/Cookie/SetCookie?name=${encodeURIComponent(name)}&value=${encodeURIComponent(value)}&days=${days}`, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    value: value,
+                    days: days
+                })
             });
+
+            if (response.ok) {
+                console.log("Cookie set successfully on the server.");
+            } else {
+                console.error("Error setting cookie on the server.");
+            }
         } else {
             const cookies = document.cookie.split('; ').map(cookie => cookie.split('='));
             for (let [key, val] of cookies) {

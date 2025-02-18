@@ -1,10 +1,11 @@
-﻿
-const inputEmail = document.getElementById('email');
+﻿const inputEmail = document.getElementById('email');
 const inputSubject = document.getElementById('subject');
 const inputFirstName = document.getElementById('firstname');
 const inputLastName = document.getElementById('lastname');
 const inputPhone = document.getElementById('phone');
 const inputMessage = document.getElementById('message');
+
+
 const response = await fetch('/api/recaptcha-sitekey');
 const data = await response.json();
 
@@ -157,6 +158,8 @@ form.addEventListener('submit', async function (event) {
     grecaptcha.ready(function () {
         grecaptcha.execute(sitekey, {  action: 'submit' }).then(async function (token) {
             const formData = new URLSearchParams();
+            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
             formData.append('email', form.email.value);
             formData.append('MailSubject', form.subject.value);
             formData.append('FirstName', form.firstname.value);
@@ -164,8 +167,8 @@ form.addEventListener('submit', async function (event) {
             formData.append('Phone', form.phone.value);
             formData.append('Message', form.message.value);
             formData.append('gRecaptchaResponse', token);
-            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
             formData.append('__RequestVerificationToken', csrfToken);
+
             form.style.pointerEvents = "none";
             form.style.opacity = "0.25";
 

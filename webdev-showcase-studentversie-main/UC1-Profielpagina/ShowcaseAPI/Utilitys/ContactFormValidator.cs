@@ -5,9 +5,18 @@
 
     public class ContactFormValidator
     {
+        // Dit patroon controleert of de naam enkel letters bevat (zowel kleine als grote letters).
+        // Het staat geen spaties, cijfers of speciale tekens toe.
         private static readonly Regex NameRegex = new Regex(@"^[a-zA-Z]+$", RegexOptions.Compiled);
+
+        // Dit patroon controleert of de invoer een geldig e-mailadres is in de vorm van "naam@domein.extensie".
+        // Het staat geen spaties of ongeldige tekens voor en na de '@' toe.
         private static readonly Regex EmailRegex = new Regex(@"^[^\s@]+@[^\s@]+\.[^\s@]+$", RegexOptions.Compiled);
+
+        // Dit patroon accepteert telefoonnummers met een optioneel plusteken (+) gevolgd door 10 tot 15 cijfers.
+        // Het is geschikt voor internationale telefoonnummers waarbij het plusteken de landcode kan aanduiden.
         private static readonly Regex PhoneRegex = new Regex(@"^\+?[0-9]{10,15}$", RegexOptions.Compiled);
+
 
         public static (bool isValid, string errorMessage) Validate(Contactform form)
         {
