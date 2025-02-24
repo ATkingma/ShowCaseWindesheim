@@ -35,7 +35,7 @@ namespace ShowcaseAPI.Controllers
                 EnableSsl = true
             };
             MailAddress from = new MailAddress(form.Email);
-            MailAddress to = new MailAddress("timmealbertkingma@email.com");
+            MailAddress to = new MailAddress("timme.albert.kingma@Gmail.com");
             MailMessage email = new MailMessage(from, to);
             email.Subject = form.MailSubject;
             email.Body = $"geachte, student\n\n" +

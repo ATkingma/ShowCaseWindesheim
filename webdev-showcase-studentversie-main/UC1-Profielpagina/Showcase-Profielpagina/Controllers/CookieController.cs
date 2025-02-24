@@ -10,6 +10,8 @@ namespace Showcase_Profielpagina.Controllers
         [HttpPost] 
         public IActionResult SetCookie([FromBody] SetCookieRequest request) 
         {
+            if(request==null)
+                return BadRequest("request==null");
             if (request.Value.Length > 4096)
             {
                 return BadRequest("Cookie value is too large.");
@@ -30,6 +32,8 @@ namespace Showcase_Profielpagina.Controllers
         [HttpGet]
         public IActionResult GetCookie(string name)
         {
+            if(name==null)
+                return Content("Not set yet");
             if (Request.Cookies.TryGetValue(name, out var value))
             {
                 return Content(value);
